@@ -23,6 +23,8 @@ class Vehicle extends Model
         'status',
         'latitude',
         'longitude',
+        'date_visite_technique',
+
     ];
 
     // define the relationship with the WorkOrder and Worker models
