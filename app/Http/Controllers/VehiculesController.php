@@ -36,21 +36,29 @@ class VehiculesController extends Controller
      *
      * @return JsonResponse
      */
-    public function create(): JsonResponse
+    public function create()
     {
         // Create a new vehicle
-        return response()->json(['message' => 'Create a new vehicle']);
     }
 
     /**
      * Store a newly created resource in storage.
      *
      * @param  \App\Http\Requests\StoreVehiculeRequest  $request
-     * @return Response
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function store(StoreVehiculeRequest $request)
     {
-        //
+        $attr = $request->toArray();
+
+        print_r($attr);die;
+
+        Vehicule::create($attr);
+
+        return back()->with([
+            'type' => 'success',
+            'message' => 'Vehicle has been created',
+        ]);
     }
 
     /**

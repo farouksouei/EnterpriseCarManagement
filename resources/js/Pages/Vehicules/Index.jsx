@@ -6,6 +6,7 @@ import useDialog from '../../Hooks/useDialog';
 import CreateUser from '../../Components/Dashboard/Users/CreateUser';
 import EditUser from '../../Components/Dashboard/Users/EditUser';
 import { Inertia } from '@inertiajs/inertia';
+import CreateVehicule from "../../Components/Dashboard/Vehicules/CreateVehicule";
 
 export default function Index(props) {
     console.log(props)
@@ -35,15 +36,15 @@ export default function Index(props) {
         <>
             <div className="container-fluid py-4">
                 <Dialog trigger={addTrigger} title="Add New Vehicule">
-                    <CreateUser close={addCloseTrigger}/>
+                    <CreateVehicule close={addCloseTrigger}/>
                 </Dialog>
 
-                <Dialog trigger={UpdateTrigger} title={`Update User: ${state.license_plate}`}>
+                <Dialog trigger={UpdateTrigger} title={`Update Vehicule: ${state.license_plate}`}>
                     <EditUser model={state} close={UpdateCloseTrigger}/>
                 </Dialog>
 
-                <Dialog trigger={destroyTrigger} title={`Delete User: ${state.license_plate}`}>
-                    <p>Are you sure to delete this user ?</p>
+                <Dialog trigger={destroyTrigger} title={`Delete Vehicule: ${state.license_plate}`}>
+                    <p>Are you sure to delete this Vehicule ?</p>
                     <div className="modal-footer">
                         <button type="button" className="btn bg-gradient-secondary" data-bs-dismiss="modal">Close</button>
                         <button type="submit" onClick={destroyUser} className="btn bg-gradient-danger">Delete</button>
@@ -60,7 +61,7 @@ export default function Index(props) {
                                     </div>
                                     <div className="col-md-6 d-flex justify-content-end">
                                         <button onClick={addDialogHandler} type="button" className="btn bg-gradient-success btn-block mb-3" data-bs-toggle="modal" data-bs-target="#exampleModalMessage">
-                                            Create New User
+                                            Create New Vehicule
                                         </button>
                                     </div>
                                 </div>
@@ -84,9 +85,6 @@ export default function Index(props) {
                                                 <td className='text-center'>{meta.from + index}</td>
                                                 <td className='text-left'>
                                                     <div className="d-flex px-2">
-                                                        <div>
-                                                            <img src="/img/team-2.jpg" className="avatar avatar-sm  me-3 " />
-                                                        </div>
                                                         <div className="my-auto">
                                                             <h6 className="mb-0 text-sm">{vehicle.make}</h6>
                                                         </div>
