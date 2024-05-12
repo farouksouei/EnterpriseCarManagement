@@ -10,6 +10,7 @@ use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\VehiculesController;
+use App\Http\Controllers\WorkersController;
 
 Route::get('/', HomeController::class)->name('home');
 
@@ -19,6 +20,8 @@ Route::middleware('auth')->group(function () {
 
     Route::apiResource('users', UserController::class);
     Route::apiResource('vehicles', VehiculesController::class);
+    Route::apiResource('workers', WorkersController::class);
+
 
     Route::get('profile', ProfileController::class)->name('profile');
 });
