@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Vehicle extends Model
+class Vehicule extends Model
 {
     protected $fillable = [
         'make',
@@ -13,10 +13,10 @@ class Vehicle extends Model
         'year',
         'registration',
         'mileage',
-        'license_plate',
         'fuel',
         'transmission',
         'price',
+        'license_plate',
         'color',
         'vin',
         'miles_until_service',
@@ -29,11 +29,6 @@ class Vehicle extends Model
         'status',
         'latitude',
         'longitude',
-        // timestamp
-
-    ];
-
-    // define the relationship with the WorkOrder and Worker models
-
+        ];
     use HasFactory;
 }
