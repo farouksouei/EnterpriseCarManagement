@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\SingleVehiculeResource;
 use App\Http\Resources\UserResource;
 use App\Http\Resources\VehiculeResource;
 use App\Models\User;
@@ -64,18 +65,24 @@ class VehiculesController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Vehicule  $vehicule
-     * @return Response
+     * @param Vehicule $vehicule
+     * @return \Inertia\Response|ResponseFactory
      */
-    public function show(Vehicule $vehicule)
+    public function show(Vehicule $vehicule): \Inertia\Response|ResponseFactory
     {
-        //
+        // return a single vehicle
+        print_r($vehicule);die;
+        $vehicule = new SingleVehiculeResource($vehicule);
+
+        return Inertia('Vehicules/Show', [
+            'vehicule' => $vehicule,
+        ]);
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Vehicule  $vehicule
+     * @param Vehicule $vehicule
      * @return Response
      */
     public function edit(Vehicule $vehicule)
@@ -87,7 +94,7 @@ class VehiculesController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \App\Http\Requests\UpdateVehiculeRequest  $request
-     * @param  \App\Models\Vehicule  $vehicule
+     * @param Vehicule $vehicule
      * @return Response
      */
     public function update(UpdateVehiculeRequest $request, Vehicule $vehicule)
@@ -98,7 +105,7 @@ class VehiculesController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Vehicule  $vehicule
+     * @param Vehicule $vehicule
      * @return Response
      */
     public function destroy(Vehicule $vehicule)

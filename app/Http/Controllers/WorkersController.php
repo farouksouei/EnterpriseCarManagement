@@ -55,7 +55,7 @@ class WorkersController extends Controller
      */
     public function show(Workers $workers)
     {
-        //
+
     }
 
     /**

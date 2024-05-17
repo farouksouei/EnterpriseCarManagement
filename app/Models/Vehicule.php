@@ -30,5 +30,7 @@ class Vehicule extends Model
         'latitude',
         'longitude',
         ];
+
+
     use HasFactory;
 }

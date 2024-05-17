@@ -29,11 +29,19 @@ class Vehicle extends Model
         'status',
         'latitude',
         'longitude',
-        // timestamp
-
     ];
 
-    // define the relationship with the WorkOrder and Worker models
+    // define the relationship with the WorkOrder model
+    public function workOrders()
+    {
+        return $this->hasMany(WorkOrder::class);
+    }
+
+    // use the workOrders relationship to get the work orders for a vehicle
+    public function getWorkOrders()
+    {
+        return $this->workOrders;
+    }
 
     use HasFactory;
 }

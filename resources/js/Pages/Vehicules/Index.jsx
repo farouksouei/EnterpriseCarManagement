@@ -35,7 +35,7 @@ export default function Index(props) {
     return (
         <>
             <div className="container-fluid py-4">
-                <Dialog trigger={addTrigger} title="Add New Vehicule">
+                <Dialog trigger={addTrigger} title="Add New KARAHBA">
                     <CreateVehicule close={addCloseTrigger}/>
                 </Dialog>
 
@@ -109,6 +109,9 @@ export default function Index(props) {
                                                         <button type="button" onClick={() => openDestroyDialog(vehicle)} className="btn btn-youtube btn-icon-only">
                                                             <span className="btn-inner--icon"><i className="fas fa-trash"></i></span>
                                                         </button>
+                                                        <Link href={route('vehicles.show', vehicle)} className="btn btn-primary btn-icon-only mx-2">
+                                                            <span className="btn-inner--icon"><i className="fas fa-eye"></i></span>
+                                                        </Link>
                                                     </div>
                                                 </td>
                                             </tr>
