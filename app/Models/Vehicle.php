@@ -29,7 +29,16 @@ class Vehicle extends Model
         'status',
         'latitude',
         'longitude',
+        'taxation_date',
+        'insurance_date',
+        'technical_visit_date',
+        'consumption',
+        'open',
     ];
+
+    //add date taxation (tax assurance visite technique)
+    //consommation
+    //open
 
     // define the relationship with the WorkOrder model
     public function workOrders()

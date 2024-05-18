@@ -68,14 +68,13 @@ class VehiculesController extends Controller
      * @param Vehicule $vehicule
      * @return \Inertia\Response|ResponseFactory
      */
-    public function show(Vehicule $vehicule): \Inertia\Response|ResponseFactory
+    public function show(Vehicule $vehicle): \Inertia\Response|ResponseFactory
     {
         // return a single vehicle
-        print_r($vehicule);die;
-        $vehicule = new SingleVehiculeResource($vehicule);
+        $vehicle = new SingleVehiculeResource($vehicle);
 
         return Inertia('Vehicules/Show', [
-            'vehicule' => $vehicule,
+            'vehicule' => $vehicle,
         ]);
     }
 
