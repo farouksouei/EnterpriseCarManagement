@@ -3,17 +3,50 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-
+use App\Http\Requests\UserRequest;
+use App\Http\Resources\UserResource;
+use App\Http\Resources\VehiculeResource;
+use App\Models\User;
+use App\Models\Vehicule;
+use App\Http\Resources\WorkerResource;
+use App\Models\Workers;
+use App\Models\WorkOrder;
 class DashboardController extends Controller
 {
     /**
      * Handle the incoming request.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @return \Inertia\Response|\Inertia\ResponseFactory
      */
     public function __invoke(Request $request)
     {
-        return inertia('Dashboard');
+        // count all users
+        $users_count = User::count();
+        $vehicules_count = Vehicule::count();
+        $workers_count = Workers::count();
+        $work_order_count = WorkOrder::count();
+
+        // get last added user
+        $last_user = User::orderBy('created_at', 'desc')->first();
+        // Get the last added vehicule
+        $last_vehicule = Vehicule::orderBy('created_at', 'desc')->first();
+
+        // Get the last added worker
+        $last_worker = Workers::orderBy('created_at', 'desc')->first();
+
+        // Get the last added work order
+        $last_work_order = WorkOrder::orderBy('created_at', 'desc')->first();
+
+        return inertia('Dashboard', [
+            'vehicles' => $vehicules_count,
+            'users' => $users_count,
+            'workers' => $workers_count,
+            'workOrder' => $work_order_count,
+            'lastVehicule' => $last_vehicule,
+            'lastUser' => $last_user,
+            'lastWorker' => $last_worker,
+            'lastWorkOrder' => $last_work_order,
+        ]);
     }
 }

@@ -1,7 +1,12 @@
 import React from 'react'
 import Base from '../Layouts/Base'
 
-export default function Dashboard() {
+export default function Dashboard(props) {
+    console.log(props)
+
+    // get vehicles and vehicles which an integer
+    const { vehicles, users, workers, workOrder, lastVehicule, lastUser, lastWorker, lastWorkOrder } = props;
+
     return (
         <>
             <div className="container-fluid py-4">
@@ -12,14 +17,10 @@ export default function Dashboard() {
                         <div className="row">
                             <div className="col-8">
                             <div className="numbers">
-                                <p className="text-sm mb-0 text-uppercase font-weight-bold">Today's Money</p>
+                                <p className="text-sm mb-0 text-uppercase font-weight-bold">Total Vehicules</p>
                                 <h5 className="font-weight-bolder">
-                                $53,000
+                                    {vehicles}
                                 </h5>
-                                <p className="mb-0">
-                                <span className="text-success text-sm font-weight-bolder">+55%</span>
-                                since yesterday
-                                </p>
                             </div>
                             </div>
                             <div className="col-4 text-end">
@@ -37,14 +38,10 @@ export default function Dashboard() {
                         <div className="row">
                             <div className="col-8">
                             <div className="numbers">
-                                <p className="text-sm mb-0 text-uppercase font-weight-bold">Today's Users</p>
+                                <p className="text-sm mb-0 text-uppercase font-weight-bold">Total Users</p>
                                 <h5 className="font-weight-bolder">
-                                2,300
+                                    {users}
                                 </h5>
-                                <p className="mb-0">
-                                <span className="text-success text-sm font-weight-bolder">+3%</span>
-                                since last week
-                                </p>
                             </div>
                             </div>
                             <div className="col-4 text-end">
@@ -62,14 +59,10 @@ export default function Dashboard() {
                         <div className="row">
                             <div className="col-8">
                             <div className="numbers">
-                                <p className="text-sm mb-0 text-uppercase font-weight-bold">New Clients</p>
+                                <p className="text-sm mb-0 text-uppercase font-weight-bold">Total Workers</p>
                                 <h5 className="font-weight-bolder">
-                                +3,462
+                                    {workers}
                                 </h5>
-                                <p className="mb-0">
-                                <span className="text-danger text-sm font-weight-bolder">-2%</span>
-                                since last quarter
-                                </p>
                             </div>
                             </div>
                             <div className="col-4 text-end">
@@ -87,13 +80,10 @@ export default function Dashboard() {
                         <div className="row">
                             <div className="col-8">
                             <div className="numbers">
-                                <p className="text-sm mb-0 text-uppercase font-weight-bold">Sales</p>
+                                <p className="text-sm mb-0 text-uppercase font-weight-bold">Total Work Order</p>
                                 <h5 className="font-weight-bolder">
-                                $103,430
+                                    {workOrder}
                                 </h5>
-                                <p className="mb-0">
-                                <span className="text-success text-sm font-weight-bolder">+5%</span> than last month
-                                </p>
                             </div>
                             </div>
                             <div className="col-4 text-end">
@@ -255,22 +245,37 @@ export default function Dashboard() {
                                 <div className="icon icon-shape icon-sm bg-white text-center border-radius-md mb-3">
                                 <i className="ni ni-camera-compact text-dark opacity-10" />
                                 </div>
-                                <h5 className="text-white mb-1">Get started with Argon</h5>
-                                <p>There’s nothing I really wanted to do in life that I wasn’t able to get good at.</p>
+                                <h5 className="text-white mb-1">Last added Vehicule</h5>
+                                <p><h6 className="text-white mb-1">{lastVehicule.make} {lastVehicule.model} <span style={{
+                                    backgroundColor: 'black',
+                                    color: 'white',
+                                    border: '1px solid white',
+                                    padding: '4px 4px',
+                                    borderRadius: '5px',
+                                    float: 'right'
+                                }}>{lastVehicule.license_plate}</span></h6></p>
                             </div>
                             </div>
-                            <div className="carousel-item h-100" style={{backgroundImage: 'url("/img/carousel-2.jpg")', backgroundSize: 'cover'}}>
-                            <div className="carousel-caption d-none d-md-block bottom-0 text-start start-0 ms-5">
-                                <div className="icon icon-shape icon-sm bg-white text-center border-radius-md mb-3">
-                                <i className="ni ni-bulb-61 text-dark opacity-10" />
+                            <div className="carousel-item h-100"
+                                 style={{backgroundImage: 'url("/img/carousel-2.jpg")', backgroundSize: 'cover'}}>
+                                <div className="carousel-caption d-none d-md-block bottom-0 text-start start-0 ms-5">
+                                    <div className="icon icon-shape icon-sm bg-white text-center border-radius-md mb-3">
+                                        <i className="ni ni-bulb-61 text-dark opacity-10" />
                                 </div>
-                                <h5 className="text-white mb-1">Faster way to create web pages</h5>
-                                <p>That’s my skill. I’m not really specifically talented at anything except for the ability to learn.</p>
+                                <h5 className="text-white mb-1">Last added Worker</h5>
+                                    <p>{lastWorker.first_name} {lastWorker.last_name} <span style={{
+                                        padding: '4px 4px',
+                                        borderRadius: '5px',
+                                        float: 'right',
+                                        fontSize: 'larger',
+                                        fontWeight : 'bold'
+                                    }}>{lastWorker.phone}</span></p>
+                                </div>
                             </div>
-                            </div>
-                            <div className="carousel-item h-100" style={{backgroundImage: 'url("/img/carousel-3.jpg")', backgroundSize: 'cover'}}>
-                            <div className="carousel-caption d-none d-md-block bottom-0 text-start start-0 ms-5">
-                                <div className="icon icon-shape icon-sm bg-white text-center border-radius-md mb-3">
+                            <div className="carousel-item h-100"
+                                 style={{backgroundImage: 'url("/img/carousel-3.jpg")', backgroundSize: 'cover'}}>
+                                <div className="carousel-caption d-none d-md-block bottom-0 text-start start-0 ms-5">
+                                    <div className="icon icon-shape icon-sm bg-white text-center border-radius-md mb-3">
                                 <i className="ni ni-trophy text-dark opacity-10" />
                                 </div>
                                 <h5 className="text-white mb-1">Share with us your design tips!</h5>
@@ -290,7 +295,7 @@ export default function Dashboard() {
                     </div>
                     </div>
                 </div>
-                
+
             </div>
 
         </>
