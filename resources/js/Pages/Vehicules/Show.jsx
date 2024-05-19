@@ -54,11 +54,19 @@ export default function Index(props) {
                                             borderRadius: '5px',
                                             float: 'right'
                                         }}>{vehicule.license_plate}</span></h6>
-
                                     </div>
                                 </div>
                             </div>
                             <div className="card-body">
+                                <div className="row">
+                                    {Object.keys(vehicule).map(key => (
+                                        key !== 'latitude' && key !== 'longitude' && (
+                                            <div className="col-12 col-md-6 mb-3" key={key}>
+                                                <strong>{key.replace(/_/g, ' ')}: </strong>{vehicule[key]}
+                                            </div>
+                                        )
+                                    ))}
+                                </div>
                                 <MapContainer center={position} zoom={13} scrollWheelZoom={false} className="map-container">
                                     <TileLayer
                                         attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'

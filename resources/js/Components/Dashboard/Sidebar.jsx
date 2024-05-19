@@ -8,7 +8,7 @@ export default function Sidebar() {
                 <i className="fas fa-times p-3 cursor-pointer opacity-5 position-absolute end-0 top-0 d-none d-xl-none opacity-8 text-white" aria-hidden="true" id="iconSidenav" />
                 <Link className="navbar-brand m-0" href={route('home')} target="_blank">
                     {/* <img src="/img/logo-ct.png" className="navbar-brand-img h-100" alt="main_logo" /> */}
-                    <span className="ms-1 font-weight-bold"> Laravel Inertia React Starter</span>
+                    <span className="ms-1 font-weight-bold"> Enterprise Vehicule Manager</span>
                 </Link>
             </div>
             <hr className="horizontal dark mt-0" />
@@ -54,7 +54,7 @@ export default function Sidebar() {
                               href={route('vehicles.index')}>
                             <div
                                 className="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
-                                <i className="fas fa-user-lock text-warning text-sm opacity-10"/>
+                                <i className="fas fa-car text-warning text-sm opacity-10"/>
                             </div>
                             <span className="nav-link-text ms-1">vehicules</span>
                         </Link>
@@ -64,7 +64,7 @@ export default function Sidebar() {
                               href={route('workers.index')}>
                             <div
                                 className="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
-                                <i className="fas fa-user-lock text-warning text-sm opacity-10"/>
+                                <i className="fas fa-user text-warning text-sm opacity-10"/>
                             </div>
                             <span className="nav-link-text ms-1">workers</span>
                         </Link>

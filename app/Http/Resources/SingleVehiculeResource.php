@@ -38,6 +38,7 @@ class SingleVehiculeResource extends JsonResource
             'status' => $this->status,
             'latitude' => $this->latitude,
             'longitude' => $this->longitude,
+            'url' => $this->url,
         ];
     }
 }
