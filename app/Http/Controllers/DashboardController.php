@@ -38,6 +38,9 @@ class DashboardController extends Controller
         // Get the last added work order
         $last_work_order = WorkOrder::orderBy('created_at', 'desc')->first();
 
+        // Get the last 4 work orders
+        $work_orders = WorkOrder::latest()->take(4)->get();
+
         return inertia('Dashboard', [
             'vehicles' => $vehicules_count,
             'users' => $users_count,
@@ -47,6 +50,7 @@ class DashboardController extends Controller
             'lastUser' => $last_user,
             'lastWorker' => $last_worker,
             'lastWorkOrder' => $last_work_order,
+            'workOrders4' => $work_orders
         ]);
     }
 }

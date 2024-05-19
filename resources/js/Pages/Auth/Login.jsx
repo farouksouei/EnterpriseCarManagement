@@ -13,7 +13,7 @@ export default function Login({ errors }) {
         e.preventDefault()
         post(route('login'), data);
     }
-    return (        
+    return (
         <>
             <div className="page-header min-vh-100">
                 <div className="container">
@@ -77,15 +77,15 @@ export default function Login({ errors }) {
                             </div>
                         </div>
                         <div className="col-6 d-lg-flex d-none h-100 my-auto pe-0 position-absolute top-0 end-0 text-center justify-content-center flex-column">
-                        <div className="position-relative bg-gradient-primary h-100 m-3 px-7 border-radius-lg d-flex flex-column justify-content-center overflow-hidden" style={{backgroundImage: 'url("https://raw.githubusercontent.com/creativetimofficial/public-assets/master/argon-dashboard-pro/assets/img/signin-ill.jpg")', backgroundSize: 'cover'}}>
-                            <span className="mask bg-gradient-primary opacity-6" />
-                            <h4 className="mt-5 text-white font-weight-bolder position-relative">"Attention is the new currency"</h4>
-                            <p className="text-white position-relative">The more effortless the writing looks, the more effort the writer actually put into the process.</p>
+                        <div className="position-relative bg-gradient-success h-100 m-3 px-7 border-radius-lg d-flex flex-column justify-content-center overflow-hidden" style={{backgroundImage: 'url("https://www.flexerent.co.uk/hubfs/Artboard%20289824@2x.png")', backgroundSize: 'cover'}}>
+                            <span className="mask bg-gradient-secondary opacity-6" />
+                            <h4 className="mt-5 text-white font-weight-bolder position-relative">"Login here"</h4>
+                            <p className="text-white position-relative">Enter your vehicule managemnt domain.</p>
                         </div>
                         </div>
                     </div>
                 </div>
-            </div>            
+            </div>
         </>
     )
 }
