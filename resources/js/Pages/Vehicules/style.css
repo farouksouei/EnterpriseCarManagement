@@ -23,3 +23,26 @@
     font-weight: 600;
     color: #343a
 }
+
+/* Custom calendar styles */
+.react-calendar {
+    max-width: 100%;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.react-calendar__tile--active {
+    background-color: #007bff;
+    color: #fff;
+}
+
+.react-calendar__tile--now {
+    background-color: #f0f0f0;
+}
+
+.react-calendar__tile--disabled {
+    background-color: #f8f9fa;
+    color: #ccc;
+}
+
