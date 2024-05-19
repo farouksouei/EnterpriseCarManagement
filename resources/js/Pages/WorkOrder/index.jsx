@@ -1,4 +1,4 @@
-import { Link } from '@inertiajs/inertia-react';
+import {Link, useForm} from '@inertiajs/inertia-react';
 import React, { useState } from 'react'
 import Dialog from '../../Components/Dashboard/Dialog';
 import Base from '../../Layouts/Base'
@@ -6,17 +6,38 @@ import useDialog from '../../Hooks/useDialog';
 import CreateUser from '../../Components/Dashboard/Users/CreateUser';
 import EditUser from '../../Components/Dashboard/Users/EditUser';
 import { Inertia } from '@inertiajs/inertia';
+import {Button, FormControl, InputLabel, MenuItem, Select, TextField} from "@mui/material";
 
 export default function Index(props) {
     console.log(props)
 
     const {data: workOrders, links, meta} = props.workOrder;
-    const [state, setState] = useState([])
-    const [newTask, setNewTask] = useState({})
+    const [state, setState] = useState({})
     const [addDialogHandler, addCloseTrigger,addTrigger] = useDialog()
     const [UpdateDialogHandler, UpdateCloseTrigger,UpdateTrigger] = useDialog()
     const [destroyDialogHandler, destroyCloseTrigger,destroyTrigger] = useDialog()
     const [AssignTasksDialogHandler, AssignTasksCloseTrigger,AssignTasksTrigger] = useDialog()
+    const { data, setData, post, reset } = useForm({
+        task_name: '',
+        task_description: '',
+        task_status: '',
+        task_priority: '',
+    });
+
+    const handleInputChange = (e) => {
+        setData(e.target.name, e.target.value);
+    };
+
+    const submitTask = (e) => {
+        e.preventDefault();
+        post(route('workorders.assign', state), {
+            data,
+            onSuccess: () => {
+                reset(),
+                    close()
+            },
+        });
+    };
     const openUpdateDialog = (workOrder) => {
         setState(workOrder);
         UpdateDialogHandler()
@@ -28,14 +49,9 @@ export default function Index(props) {
     };
 
     const AssignTasks = (workOrder) => {
+        console.log(workOrder)
         setState(workOrder);
         AssignTasksDialogHandler()
-    }
-
-    const storeNewTask = () => {
-        Inertia.post(
-            route('tasks.store', state.id),
-            { onSuccess: () => AssignTasksCloseTrigger() });
     }
 
     const destroyUser = () => {
@@ -63,14 +79,71 @@ export default function Index(props) {
                     </div>
                 </Dialog>
 
-                <Dialog trigger={AssignTasksTrigger} title={`Assign Tasks: ${state.work_order_number}`}>
-                    <p>Are you sure to assign tasks to this work order ?</p>
-                    <div className="modal-footer">
-                        <button type="button" className="btn bg-gradient-secondary" data-bs-dismiss="modal">Close</button>
-                        <button type="submit" onClick={destroyUser} className="btn bg-gradient-danger">Assign</button>
-                    </div>
-                </Dialog>
 
+                <Dialog trigger={AssignTasksTrigger} title={`Assign Tasks: ${state.work_order_number}`}>
+                    <form onSubmit={submitTask}>
+                        <div className="form-group">
+                            <TextField
+                                label="Task Name"
+                                name="task_name"
+                                value={data.task_name}
+                                onChange={handleInputChange}
+                                fullWidth
+                            />
+                        </div>
+                        <div className="form-group">
+                            <TextField
+                                label="Task Description"
+                                name="task_description"
+                                value={data.task_description}
+                                onChange={handleInputChange}
+                                fullWidth
+                            />
+                        </div>
+                        <div className="form-group">
+                            <FormControl fullWidth>
+                                <InputLabel>Task Status</InputLabel>
+                                <Select
+                                    name="task_status"
+                                    value={data.task_status}
+                                    onChange={handleInputChange}
+                                >
+                                    <MenuItem value="">Select Status</MenuItem>
+                                    <MenuItem value="pending">Pending</MenuItem>
+                                    <MenuItem value="in_progress">In Progress</MenuItem>
+                                    <MenuItem value="completed">Completed</MenuItem>
+                                </Select>
+                            </FormControl>
+                        </div>
+                        <div className="form-group">
+                            <FormControl fullWidth>
+                                <InputLabel>Task Priority</InputLabel>
+                                <Select
+                                    name="task_priority"
+                                    value={data.task_priority}
+                                    onChange={handleInputChange}
+                                >
+                                    <MenuItem value="">Select Priority</MenuItem>
+                                    <MenuItem value="low">Low</MenuItem>
+                                    <MenuItem value="medium">Medium</MenuItem>
+                                    <MenuItem value="high">High</MenuItem>
+                                </Select>
+                            </FormControl>
+                        </div>
+                        <div className="modal-footer">
+                            <Button
+                                variant="contained"
+                                color="secondary"
+                                onClick={() => setAssignTasksDialog(false)}
+                            >
+                                Close
+                            </Button>
+                            <Button type="submit" variant="contained" color="primary">
+                                Assign
+                            </Button>
+                        </div>
+                    </form>
+                </Dialog>
 
 
                 <div className="row pb-4">
@@ -79,25 +152,30 @@ export default function Index(props) {
                             <div className="card-header pb-0">
                                 <div className="row">
                                     <div className="col-md-6">
-                                        <h6>Vehicles table table</h6>
+                                        <h6>Work Order table</h6>
                                     </div>
                                     <div className="col-md-6 d-flex justify-content-end">
-                                        <button onClick={addDialogHandler} type="button" className="btn bg-gradient-success btn-block mb-3" data-bs-toggle="modal" data-bs-target="#exampleModalMessage">
-                                            Create New User
+                                        <button onClick={addDialogHandler} type="button"
+                                                className="btn bg-gradient-success btn-block mb-3"
+                                                data-bs-toggle="modal" data-bs-target="#exampleModalMessage">
+                                            Create New Work Order
                                         </button>
                                     </div>
                                 </div>
                             </div>
                             <div className="card-body px-0 pt-0 pb-2">
                                 <div className="table-responsive-xxl p-0" width="100%">
-                                    <table className="table align-items-center justify-content-center mb-0" width="100%">
+                                    <table className="table align-items-center justify-content-center mb-0"
+                                           width="100%">
                                         <thead>
                                         <tr>
                                             <th className="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 text-centter">#</th>
                                             <th className="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2 text-left">work_order_number</th>
                                             <th className="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2 text-left">work_order_status</th>
                                             <th className="text-uppercase text-secondary text-xxs font-weight-bolder text-left opacity-7 ps-2">work_order_type</th>
-                                            <th className="text-uppercase text-secondary text-xxs font-weight-bolder text-left opacity-7 ps-2">Export task</th>
+                                            <th className="text-uppercase text-secondary text-xxs font-weight-bolder text-left opacity-7 ps-2">Export
+                                                task
+                                            </th>
                                             <th className="text-uppercase text-secondary text-xxs font-weight-bolder text-center opacity-7 ps-2">Actions</th>
                                         </tr>
                                         </thead>
@@ -167,4 +245,4 @@ export default function Index(props) {
     )
 }
 
-Index.layout = (page) => <Base key={page} children={page} title={"Manage Workers"}/>
+Index.layout = (page) => <Base key={page} children={page} title={"Manage Worker Orders"}/>

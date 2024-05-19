@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Tasks;
 use App\Models\WorkOrder;
 use App\Http\Requests\StoreWorkOrderRequest;
 use App\Http\Requests\UpdateWorkOrderRequest;
 use App\Http\Resources\WorkOrderResource;
+use Illuminate\Http\Request;
 
 class WorkerOrderController extends Controller
 {
@@ -16,6 +18,27 @@ class WorkerOrderController extends Controller
      */
     public function index()
     {
+        $workOrder = WorkOrderResource::collection(WorkOrder::latest()->paginate(10));
+        // Return a collection of $workOrder with pagination
+        // inertia response
+        return Inertia('WorkOrder/index', [
+            'workOrder' => $workOrder,
+        ]);
+    }
+
+    public function assign(Request $request, WorkOrder $workOrder): \Illuminate\Http\RedirectResponse
+    {
+        $validatedData = $request->validate([
+            'task_name' => 'required|string|max:255',
+            'task_description' => 'nullable|string',
+            'task_status' => 'required|string|max:255',
+            'task_priority' => 'required|string|max:255',
+        ]);
+
+        $task = new Tasks($validatedData);
+        $task->work_order_id = $workOrder->id;
+        $task->save();
+
         $workOrder = WorkOrderResource::collection(WorkOrder::latest()->paginate(10));
         // Return a collection of $workOrder with pagination
         // inertia response
