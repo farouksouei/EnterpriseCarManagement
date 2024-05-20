@@ -4,10 +4,12 @@ namespace App\Http\Controllers;
 
 use App\Http\Resources\VehiculeResource;
 use App\Http\Resources\WorkerResource;
+use App\Models\User;
 use App\Models\Vehicule;
 use App\Models\Workers;
 use App\Http\Requests\StoreWorkersRequest;
 use App\Http\Requests\UpdateWorkersRequest;
+use Illuminate\Http\RedirectResponse;
 
 class WorkersController extends Controller
 {
@@ -39,12 +41,19 @@ class WorkersController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \App\Http\Requests\StoreWorkersRequest  $request
-     * @return \Illuminate\Http\Response
+     * @param StoreWorkersRequest $request
+     * @return RedirectResponse
      */
     public function store(StoreWorkersRequest $request)
     {
-        //
+        $attr = $request->toArray();
+
+        Workers::create($attr);
+
+        return back()->with([
+            'type' => 'success',
+            'message' => 'Worker has been added successfully.',
+        ]);
     }
 
     /**

@@ -3,7 +3,7 @@ import React, { useState } from 'react'
 import Dialog from '../../Components/Dashboard/Dialog';
 import Base from '../../Layouts/Base'
 import useDialog from '../../Hooks/useDialog';
-import CreateUser from '../../Components/Dashboard/Users/CreateUser';
+import CreateWorker from '../../Components/Dashboard/Workers/CreateWorker';
 import EditUser from '../../Components/Dashboard/Users/EditUser';
 import { Inertia } from '@inertiajs/inertia';
 
@@ -27,7 +27,7 @@ export default function Index(props) {
 
     const destroyUser = () => {
         Inertia.delete(
-            route('users.destroy', state.id),
+            route('workers.destroy', state.id),
             { onSuccess: () => destroyCloseTrigger() });
     }
 
@@ -35,14 +35,14 @@ export default function Index(props) {
         <>
             <div className="container-fluid py-4">
                 <Dialog trigger={addTrigger} title="Add New Worker">
-                    <CreateUser close={addCloseTrigger}/>
+                    <CreateWorker close={addCloseTrigger}/>
                 </Dialog>
 
-                <Dialog trigger={UpdateTrigger} title={`Update Worker: ${state.license_plate}`}>
+                <Dialog trigger={UpdateTrigger} title={`Update Worker: ${state.first_name}`}>
                     <EditUser model={state} close={UpdateCloseTrigger}/>
                 </Dialog>
 
-                <Dialog trigger={destroyTrigger} title={`Delete Worker: ${state.license_plate}`}>
+                <Dialog trigger={destroyTrigger} title={`Delete Worker: ${state.first_name}`}>
                     <p>Are you sure to delete this user ?</p>
                     <div className="modal-footer">
                         <button type="button" className="btn bg-gradient-secondary" data-bs-dismiss="modal">Close</button>
@@ -56,11 +56,11 @@ export default function Index(props) {
                             <div className="card-header pb-0">
                                 <div className="row">
                                     <div className="col-md-6">
-                                        <h6>Vehicles table table</h6>
+                                        <h6>Workers table</h6>
                                     </div>
                                     <div className="col-md-6 d-flex justify-content-end">
                                         <button onClick={addDialogHandler} type="button" className="btn bg-gradient-success btn-block mb-3" data-bs-toggle="modal" data-bs-target="#exampleModalMessage">
-                                            Create New User
+                                            Add new worker
                                         </button>
                                     </div>
                                 </div>

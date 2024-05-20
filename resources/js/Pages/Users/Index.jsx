@@ -9,7 +9,7 @@ import { Inertia } from '@inertiajs/inertia';
 
 export default function Index(props) {
 
-    const {data: users, links, meta} = props.users; 
+    const {data: users, links, meta} = props.users;
     const [state, setState] = useState([])
     const [addDialogHandler, addCloseTrigger,addTrigger] = useDialog()
     const [UpdateDialogHandler, UpdateCloseTrigger,UpdateTrigger] = useDialog()
@@ -21,23 +21,23 @@ export default function Index(props) {
 
     const openDestroyDialog = (user) => {
         setState(user);
-        destroyDialogHandler()        
+        destroyDialogHandler()
     };
 
     const destroyUser = () => {
         Inertia.delete(
-            route('users.destroy', state.id), 
+            route('users.destroy', state.id),
             { onSuccess: () => destroyCloseTrigger() });
     }
 
     return (
         <>
             <div className="container-fluid py-4">
-                <Dialog trigger={addTrigger} title="Create New User"> 
+                <Dialog trigger={addTrigger} title="Create New User">
                     <CreateUser close={addCloseTrigger}/>
                 </Dialog>
 
-                <Dialog trigger={UpdateTrigger} title={`Update User: ${state.name}`}> 
+                <Dialog trigger={UpdateTrigger} title={`Update User: ${state.name}`}>
                     <EditUser model={state} close={UpdateCloseTrigger}/>
                 </Dialog>
 
@@ -51,7 +51,7 @@ export default function Index(props) {
 
                 <div className="row pb-4">
                     <div className="col-12 w-100">
-                        <div className="card h-100 w-100">                            
+                        <div className="card h-100 w-100">
                             <div className="card-header pb-0">
                             <div className="row">
                                 <div className="col-md-6">
@@ -83,9 +83,6 @@ export default function Index(props) {
                                                 <td className='text-center'>{meta.from + index}</td>
                                                 <td className='text-left'>
                                                     <div className="d-flex px-2">
-                                                        <div>
-                                                            <img src="/img/team-2.jpg" className="avatar avatar-sm  me-3 " />
-                                                        </div>
                                                         <div className="my-auto">
                                                             <h6 className="mb-0 text-sm">{user.name}</h6>
                                                         </div>
