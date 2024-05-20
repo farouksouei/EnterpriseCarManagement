@@ -10,13 +10,15 @@ use App\Models\Workers;
 use App\Http\Requests\StoreWorkersRequest;
 use App\Http\Requests\UpdateWorkersRequest;
 use Illuminate\Http\RedirectResponse;
+use Inertia\Response;
+use Inertia\ResponseFactory;
 
 class WorkersController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return Response|ResponseFactory
      */
     public function index()
     {
@@ -26,16 +28,6 @@ class WorkersController extends Controller
         return Inertia('Worker/index', [
             'workers' => $worker,
         ]);
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
     }
 
     /**
