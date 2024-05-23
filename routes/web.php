@@ -12,6 +12,8 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\VehiculesController;
 use App\Http\Controllers\WorkersController;
 use App\Http\Controllers\WorkerOrderController;
+use App\Http\Controllers\CarteCarburantController;
+use App\Http\Controllers\ConsommationtController;
 
 
 Route::get('/', HomeController::class)->name('home');
@@ -25,7 +27,9 @@ Route::middleware('auth')->group(function () {
     Route::apiResource('workers', WorkersController::class);
     Route::apiResource('workorders', WorkerOrderController::class);
     Route::post('workorders/{workOrder}/assign', [WorkerOrderController::class, 'assign'])->name('workorders.assign');
+    Route::apiResource('carte-carburants', CarteCarburantController::class);
     Route::get('profile', ProfileController::class)->name('profile');
+    Route::apiResource('consommation', ConsommationtController::class);
 });
 
 Route::middleware('guest')->group(function () {

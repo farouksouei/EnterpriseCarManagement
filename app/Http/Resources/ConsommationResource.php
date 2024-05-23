@@ -14,6 +14,11 @@ class ConsommationResource extends JsonResource
      */
     public function toArray($request)
     {
-        return parent::toArray($request);
+        return [
+            'id' => $this->id,
+            'date' => $this->date,
+            'kilometers' => $this->kilometers,
+            'vehicle_id' => $this->vehicle_id,
+        ];
     }
 }

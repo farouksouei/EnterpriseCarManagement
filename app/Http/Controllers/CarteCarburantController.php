@@ -2,9 +2,15 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\CarteCarburantResource;
+use App\Http\Resources\VehiculeResource;
+use App\Http\Resources\WorkerResource;
 use App\Models\CarteCarburant;
 use App\Http\Requests\StoreCarteCarburantRequest;
 use App\Http\Requests\UpdateCarteCarburantRequest;
+use App\Models\User;
+use App\Models\Vehicule;
+use App\Models\Workers;
 
 class CarteCarburantController extends Controller
 {
@@ -15,7 +21,13 @@ class CarteCarburantController extends Controller
      */
     public function index()
     {
-        //
+        $cartes = CarteCarburantResource::collection(CarteCarburant::latest()->paginate(10));
+        $vehicles = VehiculeResource::collection(Vehicule::all());
+        // inertia response
+        return Inertia('CarteCarburant/index', [
+            'cartes' => $cartes,
+            'vehicles' => $vehicles
+        ]);
     }
 
     /**
@@ -36,7 +48,14 @@ class CarteCarburantController extends Controller
      */
     public function store(StoreCarteCarburantRequest $request)
     {
-        //
+        $attr = $request->toArray();
+
+        CarteCarburant::create($attr);
+
+        return back()->with([
+            'type' => 'success',
+            'message' => 'Carte Carburant has been affected!',
+        ]);
     }
 
     /**
@@ -81,6 +100,11 @@ class CarteCarburantController extends Controller
      */
     public function destroy(CarteCarburant $carteCarburant)
     {
-        //
+        $carteCarburant->delete();
+
+        return back()->with([
+            'type' => 'success',
+            'message' => 'Carte Carburant has been deleted!',
+        ]);
     }
 }

@@ -14,6 +14,13 @@ class CarteCarburantResource extends JsonResource
      */
     public function toArray($request)
     {
-        return parent::toArray($request);
+        return [
+            'id' => $this->id,
+            'litres' => $this->litres,
+            'max_litres' => $this->max_litres,
+            'plafond' => $this->plafond,
+            'vehicle_id' => $this->vehicle_id,
+        ];
+
     }
 }

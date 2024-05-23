@@ -16,6 +16,12 @@ return new class extends Migration
         Schema::create('consommations', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
+            // add date column and kilometers column
+            $table->date('date');
+            $table->integer('kilometers');
+            // add foreign key to vehicule
+            $table->unsignedBigInteger('vehicle_id');
+            $table->foreign('vehicle_id')->references('id')->on('vehicules');
         });
     }
 

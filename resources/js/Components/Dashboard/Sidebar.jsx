@@ -50,15 +50,36 @@ export default function Sidebar() {
                         </Link>
                     </li>
                     <li className="nav-item">
-                        <Link className={`${route().current('vehicles.*') && 'active'} nav-link`}
-                              href={route('vehicles.index')}>
+                        <div className={` nav-link` }
+                              >
                             <div
                                 className="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
                                 <i className="fas fa-car text-warning text-sm opacity-10"/>
                             </div>
-                            <span className="nav-link-text ms-1">vehicules</span>
-                        </Link>
+                            <span className="nav-link-text ms-1">Vehicle Management</span>
+                        </div>
+                        <ul className="nav flex-column ms-3">
+                            <li className="nav-item">
+                                <Link className={`${route().current('vehicles.index') && 'active'} nav-link`}
+                                      href={route('vehicles.index')}>
+                                    <span className="nav-link-text ms-1">Vehicle List</span>
+                                </Link>
+                            </li>
+                            <li className="nav-item">
+                                <Link className={`${route().current('carte-carburants.index') && 'active'} nav-link`}
+                                      href={route('vehicles.index')}>
+                                    <span className="nav-link-text ms-1">Company Fuel Card List</span>
+                                </Link>
+                            </li>
+                            <li className="nav-item">
+                                <Link className={`${route().current('consommation.index') && 'active'} nav-link`}
+                                      href={route('consommation.index')}>
+                                    <span className="nav-link-text ms-1">Daily Consommation List</span>
+                                </Link>
+                            </li>
+                        </ul>
                     </li>
+
                     <li className="nav-item">
                         <Link className={`${route().current('workers.*') && 'active'} nav-link`}
                               href={route('workers.index')}>

@@ -2,9 +2,15 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\CarteCarburantResource;
+use App\Http\Resources\ConsommationResource;
+use App\Http\Resources\VehiculeResource;
+use App\Models\CarteCarburant;
 use App\Models\Consommation;
 use App\Http\Requests\StoreConsommationRequest;
 use App\Http\Requests\UpdateConsommationRequest;
+use App\Models\User;
+use App\Models\Vehicule;
 
 class ConsommationtController extends Controller
 {
@@ -15,7 +21,13 @@ class ConsommationtController extends Controller
      */
     public function index()
     {
-        //
+        $consommation = ConsommationResource::collection(Consommation::latest()->paginate(10));
+        $vehicles = VehiculeResource::collection(Vehicule::all());
+        // inertia response
+        return Inertia('Consommation/index', [
+            'consommation' => $consommation,
+            'vehicles' => $vehicles
+        ]);
     }
 
     /**
@@ -36,7 +48,20 @@ class ConsommationtController extends Controller
      */
     public function store(StoreConsommationRequest $request)
     {
-        //
+        $attr = $request->toArray();
+
+        Consommation::create($attr);
+
+        // add the kilometer to the vehicle to the existing kilometers
+        $vehicle = Vehicule::find($request->vehicle_id);
+        $vehicle->mileage = $vehicle->mileage + $request->kilometers;
+        $vehicle->save();
+
+
+        return back()->with([
+            'type' => 'success',
+            'message' => 'Consommation has been added has been created',
+        ]);
     }
 
     /**
@@ -81,6 +106,11 @@ class ConsommationtController extends Controller
      */
     public function destroy(Consommation $consommation)
     {
-        //
+        $consommation->delete();
+
+        return back()->with([
+            'type' => 'success',
+            'message' => 'Consommation has been deleted',
+        ]);
     }
 }
