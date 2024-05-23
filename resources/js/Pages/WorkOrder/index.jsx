@@ -7,6 +7,8 @@ import CreateWorkOrder from '../../Components/Dashboard/WorkOrders/CreateWorkOrd
 import EditUser from '../../Components/Dashboard/Users/EditUser';
 import { Inertia } from '@inertiajs/inertia';
 import {Button, FormControl, InputLabel, MenuItem, Select, TextField} from "@mui/material";
+import html2canvas from "html2canvas";
+import jsPDF from "jspdf";
 
 export default function Index(props) {
     console.log(props)
@@ -37,6 +39,7 @@ export default function Index(props) {
                     close()
             },
         });
+        AssignTasksCloseTrigger();
     };
     const openUpdateDialog = (workOrder) => {
         setState(workOrder);
@@ -53,6 +56,61 @@ export default function Index(props) {
         setState(workOrder);
         AssignTasksDialogHandler()
     }
+
+    const ExportTasks = (workOrder) => {
+        console.log("work order", workOrder);
+
+        // Build the HTML for tasks to export in PDF
+        const tasksHtml = workOrder.tasks.map(task => {
+            console.log(task);
+            return `<tr>
+                    <td>${task.task_name}</td>
+                    <td>${task.task_description}</td>
+                    <td>${task.task_status}</td>
+                    <td>${task.task_priority}</td>
+                </tr>`;
+        }).join('');
+
+        // Create a wrapper div to hold the table
+        const container = document.createElement('div');
+        container.innerHTML = `
+        <table border="1" style="border-collapse: collapse; width: 100%;">
+            <thead>
+                <tr>
+                    <th>Task Name</th>
+                    <th>Description</th>
+                    <th>Status</th>
+                    <th>Priority</th>
+                </tr>
+            </thead>
+            <tbody>
+                ${tasksHtml}
+            </tbody>
+        </table>
+    `;
+        document.body.appendChild(container);
+
+        const printDocument = (element) => {
+            html2canvas(element)
+                .then((canvas) => {
+                    const imgData = canvas.toDataURL('image/png');
+                    const pdf = new jsPDF();
+                    pdf.addImage(imgData, 'JPEG', 0, 0);
+                    pdf.save("download.pdf");
+
+                    // Clean up the added element from the DOM
+                    document.body.removeChild(container);
+                })
+                .catch((error) => {
+                    console.error('Error generating PDF:', error);
+                    // Clean up the added element from the DOM in case of error
+                    document.body.removeChild(container);
+                });
+        };
+
+        printDocument(container);
+    };
+
 
     const destroyUser = () => {
         Inertia.delete(
@@ -198,7 +256,7 @@ export default function Index(props) {
                                                 </td>
                                                 <td className="align-middle text-left">
                                                     <div className="d-flex align-items-center text-left">
-                                                        <span className="text-xs font-weight-bold mb-0"><button type="button" onClick={() => openUpdateDialog(worker)} className="btn btn-success btn-icon-only mx-2">
+                                                        <span className="text-xs font-weight-bold mb-0"><button type="button" onClick={() => ExportTasks(workOrder)} className="btn btn-success btn-icon-only mx-2">
                                                             <span className="btn-inner--icon"><i className="fas fa-download"></i></span>
                                                         </button></span>
                                                     </div>
