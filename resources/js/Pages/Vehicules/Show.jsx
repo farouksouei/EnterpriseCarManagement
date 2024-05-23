@@ -88,18 +88,6 @@ export default function Index(props) {
 
                                         )
                                     ))}
-                                    <Grid item xs={12} md={6}>
-                                        <Typography variant="body1">
-                                            <strong>Inspection Date:</strong>
-                                        </Typography>
-                                        <ReactCalendar value={new Date(vehicule.inspection_date)} />
-                                    </Grid>
-                                    <Grid item xs={12} md={6}>
-                                        <Typography variant="body1">
-                                            <strong>Insurance Date:</strong>
-                                        </Typography>
-                                        <ReactCalendar value={new Date(vehicule.insurance_date)} />
-                                    </Grid>
                                 </Grid>
                                 <Box sx={{ marginTop: '20px' }}>
 

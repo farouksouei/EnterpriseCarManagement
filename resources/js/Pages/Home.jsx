@@ -9,7 +9,6 @@ export default function Home() {
                 <div className="hero-background text-center">
                     <Container className="py-1">
                         <Row className="justify-content-center align-content-center" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center'}}>
-
                             <Col>
                                 <CardImg src="/img/imageFleet.jpg" alt="Hero" />
                             </Col>
@@ -85,29 +84,6 @@ export default function Home() {
                                     </Card.Text>
                                 </Card.Body>
                             </Card>
-                        </Col>
-                    </Row>
-                </Container>
-
-                <Container className="my-5">
-                    <Row className="justify-content-center">
-                        <Col md={6}>
-                            <h2 className="text-center">Contact Us</h2>
-                            <Form>
-                                <Form.Group controlId="formName">
-                                    <Form.Label>Name</Form.Label>
-                                    <Form.Control type="text" placeholder="Enter your name" />
-                                </Form.Group>
-                                <Form.Group controlId="formEmail">
-                                    <Form.Label>Email</Form.Label>
-                                    <Form.Control type="email" placeholder="Enter your email" />
-                                </Form.Group>
-                                <Form.Group controlId="formMessage">
-                                    <Form.Label>Message</Form.Label>
-                                    <Form.Control as="textarea" rows={3} placeholder="Enter your message" />
-                                </Form.Group>
-                                <Button variant="primary" type="submit" className="mt-3">Submit</Button>
-                            </Form>
                         </Col>
                     </Row>
                 </Container>

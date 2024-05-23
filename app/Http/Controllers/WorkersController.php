@@ -90,6 +90,11 @@ class WorkersController extends Controller
      */
     public function destroy(Workers $workers)
     {
-        //
+        $workers->delete();
+
+        return back()->with([
+            'type' => 'success',
+            'message' => 'workers has been deleted',
+        ]);
     }
 }

@@ -46,7 +46,7 @@ export default function CreateVehicle({ close }) {
             <form onSubmit={onSubmit}>
                 <div className="modal-body">
                     {[
-                        { label: 'Make', id: 'make' },
+                        { label: 'Marque', id: 'make' },
                         { label: 'Model', id: 'model' },
                         { label: 'Year', id: 'year' },
                         { label: 'Registration', id: 'registration' },

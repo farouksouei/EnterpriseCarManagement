@@ -122,6 +122,11 @@ class WorkerOrderController extends Controller
      */
     public function destroy(WorkOrder $workOrder)
     {
-        //
+        $workOrder->delete();
+
+        return back()->with([
+            'type' => 'success',
+            'message' => 'workOrder has been deleted',
+        ]);
     }
 }

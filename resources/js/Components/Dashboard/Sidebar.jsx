@@ -7,7 +7,11 @@ export default function Sidebar() {
             <div className="sidenav-header">
                 <i className="fas fa-times p-3 cursor-pointer opacity-5 position-absolute end-0 top-0 d-none d-xl-none opacity-8 text-white" aria-hidden="true" id="iconSidenav" />
                 <Link className="navbar-brand m-0" href={route('home')} target="_blank">
-                    {/* <img src="/img/logo-ct.png" className="navbar-brand-img h-100" alt="main_logo" /> */}
+                    <img
+                        src="/img/download.jpg"
+                        alt="main_logo"
+                        style={{height: '30px'}}
+                    />
                     <span className="ms-1 font-weight-bold"> Enterprise Vehicule Manager</span>
                 </Link>
             </div>
