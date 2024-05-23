@@ -67,7 +67,7 @@ export default function Sidebar() {
                             </li>
                             <li className="nav-item">
                                 <Link className={`${route().current('carte-carburants.index') && 'active'} nav-link`}
-                                      href={route('vehicles.index')}>
+                                      href={route('carte-carburants.index')}>
                                     <span className="nav-link-text ms-1">Company Fuel Card List</span>
                                 </Link>
                             </li>
@@ -75,6 +75,12 @@ export default function Sidebar() {
                                 <Link className={`${route().current('consommation.index') && 'active'} nav-link`}
                                       href={route('consommation.index')}>
                                     <span className="nav-link-text ms-1">Daily Consommation List</span>
+                                </Link>
+                            </li>
+                            <li className="nav-item">
+                                <Link className={`${route().current('calendar') && 'active'} nav-link`}
+                                      href={route('calendar')}>
+                                    <span className="nav-link-text ms-1">Calendar</span>
                                 </Link>
                             </li>
                         </ul>
