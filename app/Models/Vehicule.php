@@ -29,6 +29,8 @@ class Vehicule extends Model
         'status',
         'latitude',
         'longitude',
+        'description',
+        'url'
         ];
 
 

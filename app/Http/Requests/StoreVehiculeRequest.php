@@ -45,6 +45,8 @@ class StoreVehiculeRequest extends FormRequest
             'status' => 'required|in:available,unavailable',
             'latitude' => 'required|string|max:55',
             'longitude' => 'required|string|max:55',
+            'description' => 'required|string|max:255',
+            'url' => 'required|string|max:255',
         ];
     }
 }

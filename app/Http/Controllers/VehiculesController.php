@@ -52,7 +52,6 @@ class VehiculesController extends Controller
     {
         $attr = $request->toArray();
 
-        print_r($attr);die;
 
         Vehicule::create($attr);
 
