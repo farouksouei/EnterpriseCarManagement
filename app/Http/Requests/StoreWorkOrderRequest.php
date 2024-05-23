@@ -13,7 +13,7 @@ class StoreWorkOrderRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true; // You can add additional authorization logic here if needed
     }
 
     /**
@@ -24,7 +24,11 @@ class StoreWorkOrderRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'work_order_number' => 'required|string|max:255',
+            'work_order_type' => 'required|string|max:255',
+            'work_order_status' => 'required|string|max:255',
+            'worker_id' => 'required|exists:workers,id',
+            'vehicle_id' => 'required|exists:vehicules,id',
         ];
     }
 }

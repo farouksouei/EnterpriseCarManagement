@@ -2,12 +2,16 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\WorkerResource;
 use App\Models\Tasks;
+use App\Models\Vehicule;
+use App\Models\Workers;
 use App\Models\WorkOrder;
 use App\Http\Requests\StoreWorkOrderRequest;
 use App\Http\Requests\UpdateWorkOrderRequest;
 use App\Http\Resources\WorkOrderResource;
 use Illuminate\Http\Request;
+use App\Http\Resources\VehiculeResource;
 
 class WorkerOrderController extends Controller
 {
@@ -19,10 +23,14 @@ class WorkerOrderController extends Controller
     public function index()
     {
         $workOrder = WorkOrderResource::collection(WorkOrder::latest()->paginate(10));
+        $vehicles = VehiculeResource::collection(Vehicule::all());
+        $worker = WorkerResource::collection(Workers::all());
         // Return a collection of $workOrder with pagination
         // inertia response
         return Inertia('WorkOrder/index', [
             'workOrder' => $workOrder,
+            'vehicles' => $vehicles,
+            'workers' => $worker,
         ]);
     }
 
@@ -65,7 +73,13 @@ class WorkerOrderController extends Controller
      */
     public function store(StoreWorkOrderRequest $request)
     {
-        //
+        $attr = $request->toArray();
+
+        WorkOrder::create($attr);
+        return back()->with([
+            'type' => 'success',
+            'message' => 'User has been created',
+        ]);
     }
 
     /**
@@ -97,9 +111,25 @@ class WorkerOrderController extends Controller
      * @param  \App\Models\WorkOrder  $workOrder
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateWorkOrderRequest $request, WorkOrder $workOrder)
+    public function update(UpdateWorkOrderRequest $request, WorkOrder $workOrder): \Illuminate\Http\Response
     {
-        //
+        $validatedData = $request->validate([
+            'task_name' => 'required|string|max:255',
+            'task_description' => 'nullable|string',
+            'task_status' => 'required|string|max:255',
+            'task_priority' => 'required|string|max:255',
+        ]);
+
+        $task = new Tasks($validatedData);
+        $task->work_order_id = $workOrder->id;
+        $task->save();
+
+        // Return a collection of $workOrder with pagination
+        // inertia response
+        return back()->with([
+            'type' => 'success',
+            'message' => 'task added with success',
+        ]);
     }
 
     /**

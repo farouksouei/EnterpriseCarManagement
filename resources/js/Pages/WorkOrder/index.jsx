@@ -3,7 +3,7 @@ import React, { useState } from 'react'
 import Dialog from '../../Components/Dashboard/Dialog';
 import Base from '../../Layouts/Base'
 import useDialog from '../../Hooks/useDialog';
-import CreateUser from '../../Components/Dashboard/Users/CreateUser';
+import CreateWorkOrder from '../../Components/Dashboard/WorkOrders/CreateWorkOrder';
 import EditUser from '../../Components/Dashboard/Users/EditUser';
 import { Inertia } from '@inertiajs/inertia';
 import {Button, FormControl, InputLabel, MenuItem, Select, TextField} from "@mui/material";
@@ -64,7 +64,7 @@ export default function Index(props) {
         <>
             <div className="container-fluid py-4">
                 <Dialog trigger={addTrigger} title="Add New Worker">
-                    <CreateUser close={addCloseTrigger}/>
+                    <CreateWorkOrder close={addCloseTrigger} workers={props.workers} vehicles={props.vehicles}/>
                 </Dialog>
 
                 <Dialog trigger={UpdateTrigger} title={`Update Worker: ${state.license_plate}`}>
