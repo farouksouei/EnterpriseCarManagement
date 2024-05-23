@@ -41,6 +41,10 @@ class DashboardController extends Controller
         // Get the last 4 work orders
         $work_orders = WorkOrder::latest()->take(4)->get();
 
+        $entretien = Vehicule::all()->pluck('inspection_date');
+        $tax_date = Vehicule::all()->pluck('tax_date');
+        $insurance_date = Vehicule::all()->pluck('insurance_date');
+
         return inertia('Dashboard', [
             'vehicles' => $vehicules_count,
             'users' => $users_count,
@@ -50,7 +54,10 @@ class DashboardController extends Controller
             'lastUser' => $last_user,
             'lastWorker' => $last_worker,
             'lastWorkOrder' => $last_work_order,
-            'workOrders4' => $work_orders
+            'workOrders4' => $work_orders,
+            'dates_entretien' => $entretien,
+            'tax_dates' => $tax_date,
+            'insurance_dates' => $insurance_date
         ]);
     }
 }

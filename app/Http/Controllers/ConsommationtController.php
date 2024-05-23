@@ -44,7 +44,7 @@ class ConsommationtController extends Controller
      * Store a newly created resource in storage.
      *
      * @param  \App\Http\Requests\StoreConsommationRequest  $request
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function store(StoreConsommationRequest $request)
     {
@@ -54,7 +54,7 @@ class ConsommationtController extends Controller
 
         // add the kilometer to the vehicle to the existing kilometers
         $vehicle = Vehicule::find($request->vehicle_id);
-        $vehicle->mileage = $vehicle->mileage + $request->kilometers;
+        $vehicle->mileage = strval($vehicle->mileage + $request->kilometers);
         $vehicle->save();
 
 

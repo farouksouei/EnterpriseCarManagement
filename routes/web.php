@@ -14,6 +14,7 @@ use App\Http\Controllers\WorkersController;
 use App\Http\Controllers\WorkerOrderController;
 use App\Http\Controllers\CarteCarburantController;
 use App\Http\Controllers\ConsommationtController;
+use App\Http\Controllers\CalendarController;
 
 
 Route::get('/', HomeController::class)->name('home');
@@ -29,6 +30,7 @@ Route::middleware('auth')->group(function () {
     Route::post('workorders/{workOrder}/assign', [WorkerOrderController::class, 'assign'])->name('workorders.assign');
     Route::apiResource('carte-carburants', CarteCarburantController::class);
     Route::get('profile', ProfileController::class)->name('profile');
+    Route::get('calendar', CalendarController::class)->name('calendar');
     Route::apiResource('consommation', ConsommationtController::class);
 });
 
