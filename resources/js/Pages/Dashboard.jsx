@@ -25,7 +25,7 @@ export default function Dashboard(props) {
                             </div>
                             <div className="col-4 text-end">
                             <div className="icon icon-shape bg-gradient-primary shadow-primary text-center rounded-circle">
-                                <i className="ni ni-money-coins text-lg opacity-10" aria-hidden="true" />
+                                <i className="fas fa-car text-lg opacity-10" aria-hidden="true" />
                             </div>
                             </div>
                         </div>
@@ -46,7 +46,7 @@ export default function Dashboard(props) {
                             </div>
                             <div className="col-4 text-end">
                             <div className="icon icon-shape bg-gradient-danger shadow-danger text-center rounded-circle">
-                                <i className="ni ni-world text-lg opacity-10" aria-hidden="true" />
+                                <i className="fas fa-user text-lg opacity-10" aria-hidden="true" />
                             </div>
                             </div>
                         </div>
@@ -67,7 +67,7 @@ export default function Dashboard(props) {
                             </div>
                             <div className="col-4 text-end">
                             <div className="icon icon-shape bg-gradient-success shadow-success text-center rounded-circle">
-                                <i className="ni ni-paper-diploma text-lg opacity-10" aria-hidden="true" />
+                                <i className="fas fa-users text-lg opacity-10" aria-hidden="true" />
                             </div>
                             </div>
                         </div>
@@ -88,7 +88,7 @@ export default function Dashboard(props) {
                             </div>
                             <div className="col-4 text-end">
                             <div className="icon icon-shape bg-gradient-warning shadow-warning text-center rounded-circle">
-                                <i className="ni ni-cart text-lg opacity-10" aria-hidden="true" />
+                                <i className="fas fa-list text-lg opacity-10" aria-hidden="true" />
                             </div>
                             </div>
                         </div>

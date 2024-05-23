@@ -74,7 +74,8 @@ export default function Sidebar() {
                               href={route('workorders.index')}>
                             <div
                                 className="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
-                                <i className="fas fa-user text-warning text-sm opacity-10"/>
+                                <i className="fas fa-list text-warning text-sm opacity-10"/>
+                                <i className=""></i>
                             </div>
                             <span className="nav-link-text ms-1">work orders</span>
                         </Link>

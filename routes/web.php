@@ -24,6 +24,7 @@ Route::middleware('auth')->group(function () {
     Route::apiResource('vehicles', VehiculesController::class);
     Route::apiResource('workers', WorkersController::class);
     Route::apiResource('workorders', WorkerOrderController::class);
+    Route::post('workorders/{workOrder}/assign', [WorkerOrderController::class, 'assign'])->name('workorders.assign');
     Route::get('profile', ProfileController::class)->name('profile');
 });
 
@@ -33,7 +34,6 @@ Route::middleware('guest')->group(function () {
 
     Route::get('register', [RegisterController::class, 'create'])->name('register');
     Route::post('register', [RegisterController::class, 'store']);
-    Route::post('workorders/{workOrder}/assign', [WorkerOrderController::class, 'assign'])->name('workorders.assign');
 
     Route::get('auth/google', [GoogleController::class, 'redirectToGoogle'])->name('auth.google');
     Route::get('auth/google/callback', [GoogleController::class, 'handleGoogleCallback']);

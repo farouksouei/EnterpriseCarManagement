@@ -47,11 +47,9 @@ class WorkerOrderController extends Controller
         $task->work_order_id = $workOrder->id;
         $task->save();
 
-        $workOrder = WorkOrderResource::collection(WorkOrder::latest()->paginate(10));
-        // Return a collection of $workOrder with pagination
-        // inertia response
-        return Inertia('WorkOrder/index', [
-            'workOrder' => $workOrder,
+        return back()->with([
+            'type' => 'success',
+            'message' => 'Task has been added to the work order',
         ]);
     }
 
@@ -111,25 +109,9 @@ class WorkerOrderController extends Controller
      * @param  \App\Models\WorkOrder  $workOrder
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateWorkOrderRequest $request, WorkOrder $workOrder): \Illuminate\Http\Response
+    public function update(UpdateWorkOrderRequest $request, WorkOrder $workOrder)
     {
-        $validatedData = $request->validate([
-            'task_name' => 'required|string|max:255',
-            'task_description' => 'nullable|string',
-            'task_status' => 'required|string|max:255',
-            'task_priority' => 'required|string|max:255',
-        ]);
-
-        $task = new Tasks($validatedData);
-        $task->work_order_id = $workOrder->id;
-        $task->save();
-
-        // Return a collection of $workOrder with pagination
-        // inertia response
-        return back()->with([
-            'type' => 'success',
-            'message' => 'task added with success',
-        ]);
+        //
     }
 
     /**
