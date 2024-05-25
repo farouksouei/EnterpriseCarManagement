@@ -1,43 +1,31 @@
 import React, { useState } from 'react';
 import Calendar from 'react-calendar';
 import 'react-calendar/dist/Calendar.css';
-import { Inertia } from '@inertiajs/inertia';
-import Dialog from '../../Components/Dashboard/Dialog';
 import Base from '../../Layouts/Base';
-import useDialog from '../../Hooks/useDialog';
-import CreateCarteCarburant from '../../Components/Dashboard/CarteCarburant/Create';
-import EditCarteCarburant from '../../Components/Dashboard/Users/EditUser';
+import {Link} from "@inertiajs/inertia-react";
 
 export default function Index(props) {
-    const dates_entretiens = props.dates_entretien.map(date => new Date(date));
-    const tax_dates = props.tax_dates.map(date => new Date(date));
-    const insurance_dates = props.insurance_dates.map(date => new Date(date));
-    const [state, setState] = useState({});
-    const [addDialogHandler, addCloseTrigger, addTrigger] = useDialog();
-    const [updateDialogHandler, updateCloseTrigger, updateTrigger] = useDialog();
-    const [destroyDialogHandler, destroyCloseTrigger, destroyTrigger] = useDialog();
-
-    const openUpdateDialog = (carte) => {
-        setState(carte);
-        updateDialogHandler();
-    }
-
-    const openDestroyDialog = (carte) => {
-        setState(carte);
-        destroyDialogHandler();
-    };
-
-    const destroyCarte = () => {
-        Inertia.delete(
-            route('carte-carburants.destroy', state.id),
-            { onSuccess: () => destroyCloseTrigger() }
-        );
-    }
+    const [selectedEntretienVehicles, setSelectedEntretienVehicles] = useState([]);
+    const [selectedTaxVehicles, setSelectedTaxVehicles] = useState([]);
+    const [selectedInsuranceVehicles, setSelectedInsuranceVehicles] = useState([]);
 
     const tileContent = (dates) => ({ date, view }) => {
-        if (view === 'month' && dates.find(d => d.toDateString() === date.toDateString())) {
-            return <p>•</p>;
+        if (view === 'month') {
+            const foundDate = dates.find(d => new Date(d.date).toDateString() === date.toDateString());
+            if (foundDate) {
+                return (
+                    <p title={`License Plate: ${foundDate.license_plate}, Make: ${foundDate.make}, Model: ${foundDate.model}`} style={{backgroundColor: 'blue', borderRadius: '5px'}}>
+                        <span style={{color: 'blue'}}>•</span>
+                    </p>
+                );
+            }
         }
+    }
+
+    const handleDayClick = (dates, setSelectedVehicles, value) => {
+        const selectedDate = value.toDateString();
+        const vehicles = dates.filter(d => new Date(d.date).toDateString() === selectedDate);
+        setSelectedVehicles(vehicles);
     }
 
     return (
@@ -53,10 +41,35 @@ export default function Index(props) {
                                     </div>
                                 </div>
                             </div>
-                            <div className="card-body">
+                            <div className="card-body" style={{display: "flex", justifyContent: "space-between"}}>
                                 <Calendar
-                                    tileContent={tileContent(dates_entretiens)}
+                                    tileContent={tileContent(props.dates_entretien)}
+                                    onClickDay={(value) => handleDayClick(props.dates_entretien, setSelectedEntretienVehicles, value)}
                                 />
+                                <div className="card-body">
+                                    <table className="table">
+                                        <thead>
+                                        <tr>
+                                            <th>License Plate</th>
+                                            <th>Make</th>
+                                            <th>Model</th>
+                                            <th>Link</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        {selectedEntretienVehicles.map(vehicle => (
+                                            <tr key={vehicle.license_plate}>
+                                                <td>{vehicle.license_plate}</td>
+                                                <td>{vehicle.make}</td>
+                                                <td>{vehicle.model}</td>
+                                                <Link href={route('vehicles.show', vehicle.id)} className="btn btn-primary btn-icon-only mx-2">
+                                                    <span className="btn-inner--icon"><i className="fas fa-eye"></i></span>
+                                                </Link>
+                                            </tr>
+                                        ))}
+                                        </tbody>
+                                    </table>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -71,10 +84,37 @@ export default function Index(props) {
                                     </div>
                                 </div>
                             </div>
-                            <div className="card-body">
+                            <div className="card-body" style={{display: "flex", justifyContent: "space-between"}}>
                                 <Calendar
-                                    tileContent={tileContent(tax_dates)}
+                                    tileContent={tileContent(props.tax_dates)}
+                                    onClickDay={(value) => handleDayClick(props.tax_dates, setSelectedTaxVehicles, value)}
                                 />
+                                <div className="card-body">
+                                    <table className="table">
+                                        <thead>
+                                        <tr>
+                                            <th>License Plate</th>
+                                            <th>Make</th>
+                                            <th>Model</th>
+                                            <th>Link</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        {selectedTaxVehicles.map(vehicle => (
+                                            <tr key={vehicle.license_plate}>
+                                                <td>{vehicle.license_plate}</td>
+                                                <td>{vehicle.make}</td>
+                                                <td>{vehicle.model}</td>
+                                                <Link href={route('vehicles.show', vehicle.id)}
+                                                      className="btn btn-primary btn-icon-only mx-2">
+                                                    <span className="btn-inner--icon"><i
+                                                        className="fas fa-eye"></i></span>
+                                                </Link>
+                                            </tr>
+                                        ))}
+                                        </tbody>
+                                    </table>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -89,10 +129,37 @@ export default function Index(props) {
                                     </div>
                                 </div>
                             </div>
-                            <div className="card-body">
+                            <div className="card-body" style={{display: "flex", justifyContent: "space-between"}}>
                                 <Calendar
-                                    tileContent={tileContent(insurance_dates)}
+                                    tileContent={tileContent(props.insurance_dates)}
+                                    onClickDay={(value) => handleDayClick(props.insurance_dates, setSelectedInsuranceVehicles, value)}
                                 />
+                                <div className="card-body">
+                                    <table className="table">
+                                        <thead>
+                                        <tr>
+                                            <th>License Plate</th>
+                                            <th>Make</th>
+                                            <th>Model</th>
+                                            <th>Link</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        {selectedInsuranceVehicles.map(vehicle => (
+                                            <tr key={vehicle.license_plate}>
+                                                <td>{vehicle.license_plate}</td>
+                                                <td>{vehicle.make}</td>
+                                                <td>{vehicle.model}</td>
+                                                <Link href={route('vehicles.show', vehicle.id)}
+                                                      className="btn btn-primary btn-icon-only mx-2">
+                                                    <span className="btn-inner--icon"><i
+                                                        className="fas fa-eye"></i></span>
+                                                </Link>
+                                            </tr>
+                                        ))}
+                                        </tbody>
+                                    </table>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -102,4 +169,4 @@ export default function Index(props) {
     );
 }
 
-Index.layout = (page) => <Base key={page} children={page} title={"View Important Dates"} />;
+Index.layout = (page) => <Base key={page} children={page} title={"View Important Dates"}/>;

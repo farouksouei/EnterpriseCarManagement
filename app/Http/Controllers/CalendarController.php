@@ -27,9 +27,36 @@ class CalendarController extends Controller
      */
     public function __invoke(Request $request)
     {
-        $entretien = Vehicule::all()->pluck('inspection_date');
-        $tax_date = Vehicule::all()->pluck('tax_date');
-        $insurance_date = Vehicule::all()->pluck('insurance_date');
+        $entretien = Vehicule::all()->map(function ($vehicule) {
+            return [
+                'date' => $vehicule->inspection_date,
+                'license_plate' => $vehicule->license_plate,
+                'make' => $vehicule->make,
+                'model' => $vehicule->model,
+                'id' => $vehicule->id,
+            ];
+        });
+
+        $tax_date = Vehicule::all()->map(function ($vehicule) {
+            return [
+                'date' => $vehicule->tax_date,
+                'license_plate' => $vehicule->license_plate,
+                'make' => $vehicule->make,
+                'model' => $vehicule->model,
+                'id' => $vehicule->id,
+            ];
+        });
+
+        $insurance_date = Vehicule::all()->map(function ($vehicule) {
+            return [
+                'date' => $vehicule->insurance_date,
+                'license_plate' => $vehicule->license_plate,
+                'make' => $vehicule->make,
+                'model' => $vehicule->model,
+                'id' => $vehicule->id,
+            ];
+        });
+
 
         // inertia response
         return Inertia('Calendar/index', [
