@@ -165,7 +165,7 @@ class VehiculesController extends Controller
         );
 
         // Log the alert
-        Log::info("Speed alert sent for vehicle ID {$vehicle->id} at speed {$speed} km/h.");
+        Log::info("Speed alert sent for vehicle ID {$vehicle->license_plate} at speed {$speed} km/h.");
     }
 
 
@@ -177,10 +177,10 @@ class VehiculesController extends Controller
      * @param Vehicule $vehicule
      * @return RedirectResponse
      */
-    public function destroy(Vehicule $vehicule): RedirectResponse
+    public function destroy(Vehicule $vehicle): RedirectResponse
     {
         // Delete a vehicle
-        $vehicule->delete();
+        $vehicle->delete();
 
         return back()->with([
             'type' => 'success',
