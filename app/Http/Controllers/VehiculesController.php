@@ -150,8 +150,8 @@ class VehiculesController extends Controller
      */
     protected function sendSpeedAlert(Vehicule $vehicle, $speed)
     {
-        $sid = config('services.twilio.sid');
-        $token = config('services.twilio.token');
+        $sid = env('TWILIO_SID');
+        $token = env('TWILIO_AUTH_TOKEN');
         $twilio = new Client($sid, $token);
 
         $message = "Alert: Vehicle ID {$vehicle->id} is moving at {$speed} km/h which is above the speed limit.";
