@@ -18,6 +18,9 @@ use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Log;
 use Inertia\Inertia;
 use Inertia\ResponseFactory;
+use Twilio\Exceptions\ConfigurationException;
+use Twilio\Exceptions\TwilioException;
+use Twilio\Rest\Client;
 
 class VehiculesController extends Controller
 {
@@ -130,11 +133,39 @@ class VehiculesController extends Controller
             'url' => $speed,
         ]);
 
+        if ($speed > 150) {
+            $this->sendSpeedAlert($vehicle, $speed);
+        }
+
         // Return a 200 OK response with a success message
         return response()->json([
             'type' => 'success',
             'message' => 'Vehicle data has been updated successfully',
         ], 200);
+    }
+
+    /**
+     * @throws TwilioException
+     * @throws ConfigurationException
+     */
+    protected function sendSpeedAlert(Vehicule $vehicle, $speed)
+    {
+        $sid = config('services.twilio.sid');
+        $token = config('services.twilio.token');
+        $twilio = new Client($sid, $token);
+
+        $message = "Alert: Vehicle ID {$vehicle->id} is moving at {$speed} km/h which is above the speed limit.";
+
+        $twilio->messages->create(
+            env('TWILIO_ALERT_PHONE_NUMBER'), // Recipient's phone number
+            [
+                'from' => env('TWILIO_PHONE_NUMBER'), // Your Twilio phone number
+                'body' => $message,
+            ]
+        );
+
+        // Log the alert
+        Log::info("Speed alert sent for vehicle ID {$vehicle->id} at speed {$speed} km/h.");
     }
 
 
