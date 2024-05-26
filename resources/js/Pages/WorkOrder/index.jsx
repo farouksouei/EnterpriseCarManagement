@@ -19,6 +19,7 @@ export default function Index(props) {
     const [UpdateDialogHandler, UpdateCloseTrigger,UpdateTrigger] = useDialog()
     const [destroyDialogHandler, destroyCloseTrigger,destroyTrigger] = useDialog()
     const [AssignTasksDialogHandler, AssignTasksCloseTrigger,AssignTasksTrigger] = useDialog()
+
     const { data, setData, post, reset } = useForm({
         task_name: '',
         task_description: '',
@@ -256,14 +257,28 @@ export default function Index(props) {
                                                 </td>
                                                 <td className="align-middle text-left">
                                                     <div className="d-flex align-items-center text-left">
-                                                        <span className="text-xs font-weight-bold mb-0"><button type="button" onClick={() => ExportTasks(workOrder)} className="btn btn-success btn-icon-only mx-2">
-                                                            <span className="btn-inner--icon"><i className="fas fa-download"></i></span>
-                                                        </button></span>
+                                                        <span className="text-xs font-weight-bold mb-0">
+                                                            <button type="button" onClick={() => ExportTasks(workOrder)}
+                                                                    className="btn btn-success btn-icon-only mx-2">
+                                                            <span className="btn-inner--icon"><i
+                                                                className="fas fa-download"></i></span>
+                                                        </button>
+                                                        </span>
+                                                    </div>
+                                                    <div className="d-flex align-items-center text-left">
+                                                        <span className="text-xs font-weight-bold mb-0">
+                                                            <button type="button" onClick={() => ExportTasks(workOrder)}
+                                                                    className="btn btn-success btn-icon-only mx-2">
+                                                            <span className="btn-inner--icon"><i
+                                                                className="fas fa-eye"></i></span>
+                                                        </button>
+                                                        </span>
                                                     </div>
                                                 </td>
                                                 <td className="align-middle text-center" width="10%">
                                                     <div>
-                                                        <button type="button" onClick={() => openUpdateDialog(workOrder)}
+                                                        <button type="button"
+                                                                onClick={() => openUpdateDialog(workOrder)}
                                                                 className="btn btn-vimeo btn-icon-only mx-2">
                                                             <span className="btn-inner--icon"><i
                                                                 className="fas fa-pencil-alt"></i></span>

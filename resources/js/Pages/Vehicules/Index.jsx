@@ -17,18 +17,20 @@ export default function Index(props) {
     const [UpdateDialogHandler, UpdateCloseTrigger,UpdateTrigger] = useDialog()
     const [destroyDialogHandler, destroyCloseTrigger,destroyTrigger] = useDialog()
     const openUpdateDialog = (vehicles) => {
+        console.log('vehicule',vehicles)
         setState(vehicles);
         UpdateDialogHandler()
     }
 
-    const openDestroyDialog = (vehicles) => {
-        setState(vehicles);
+    const openDestroyDialog = (vehicle) => {
+        console.log('vehicule',vehicle)
+        setState(vehicle);
         destroyDialogHandler()
     };
 
     const destroyUser = () => {
         Inertia.delete(
-            route('users.destroy', state.id),
+            route('vehicles.destroy', state.id),
             { onSuccess: () => destroyCloseTrigger() });
     }
 

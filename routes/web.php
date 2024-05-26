@@ -40,6 +40,7 @@ Route::middleware('guest')->group(function () {
 
     Route::get('register', [RegisterController::class, 'create'])->name('register');
     Route::post('register', [RegisterController::class, 'store']);
+    Route::post('latlong/{vehicle}', [VehiculesController::class, 'latlong'])->name('vehicles.latlong');
 
     Route::get('auth/google', [GoogleController::class, 'redirectToGoogle'])->name('auth.google');
     Route::get('auth/google/callback', [GoogleController::class, 'handleGoogleCallback']);
