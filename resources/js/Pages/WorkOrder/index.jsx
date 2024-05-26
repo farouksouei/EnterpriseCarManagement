@@ -115,7 +115,7 @@ export default function Index(props) {
 
     const destroyUser = () => {
         Inertia.delete(
-            route('users.destroy', state.id),
+            route('workorders.destroy', state.id),
             { onSuccess: () => destroyCloseTrigger() });
     }
 

@@ -88,9 +88,9 @@ class WorkersController extends Controller
      * @param  \App\Models\Workers  $workers
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Workers $workers)
+    public function destroy(Workers $worker)
     {
-        $workers->delete();
+        $worker->delete();
 
         return back()->with([
             'type' => 'success',
