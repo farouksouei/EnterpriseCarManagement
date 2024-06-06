@@ -114,6 +114,7 @@ export default function Index(props) {
 
 
     const destroyUser = () => {
+        console.log("state" ,state)
         Inertia.delete(
             route('workorders.destroy', state.id),
             { onSuccess: () => destroyCloseTrigger() });
@@ -126,7 +127,7 @@ export default function Index(props) {
                     <CreateWorkOrder close={addCloseTrigger} workers={props.workers} vehicles={props.vehicles}/>
                 </Dialog>
 
-                <Dialog trigger={UpdateTrigger} title={`Update Worker: ${state.license_plate}`}>
+                <Dialog trigger={UpdateTrigger} title={`Update Worker: ${state.id}`}>
                     <EditUser model={state} workers={props.workers} vehicles={props.vehicles} close={UpdateCloseTrigger}/>
                 </Dialog>
 

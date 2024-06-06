@@ -24,11 +24,10 @@ class UpdateWorkOrderRequest extends FormRequest
     public function rules()
     {
         return [
+            'id' => 'required|integer',
             'work_order_number' => 'required|string|max:255',
             'work_order_type' => 'required|string|max:255',
             'work_order_status' => 'required|string|max:255',
-            'worker_id' => 'required|exists:workers,id',
-            'vehicle_id' => 'required|exists:vehicules,id',
         ];
     }
 }

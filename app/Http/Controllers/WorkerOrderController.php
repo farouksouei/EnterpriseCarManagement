@@ -10,15 +10,18 @@ use App\Models\WorkOrder;
 use App\Http\Requests\StoreWorkOrderRequest;
 use App\Http\Requests\UpdateWorkOrderRequest;
 use App\Http\Resources\WorkOrderResource;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use App\Http\Resources\VehiculeResource;
+use Illuminate\Http\Response;
+use JetBrains\PhpStorm\NoReturn;
 
 class WorkerOrderController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function index()
     {
@@ -34,7 +37,7 @@ class WorkerOrderController extends Controller
         ]);
     }
 
-    public function assign(Request $request, WorkOrder $workOrder): \Illuminate\Http\RedirectResponse
+    public function assign(Request $request, WorkOrder $workOrder): RedirectResponse
     {
         $validatedData = $request->validate([
             'task_name' => 'required|string|max:255',
@@ -56,7 +59,7 @@ class WorkerOrderController extends Controller
     /**
      * Show the form for creating a new resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function create()
     {
@@ -67,7 +70,7 @@ class WorkerOrderController extends Controller
      * Store a newly created resource in storage.
      *
      * @param  \App\Http\Requests\StoreWorkOrderRequest  $request
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function store(StoreWorkOrderRequest $request)
     {
@@ -83,8 +86,8 @@ class WorkerOrderController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\WorkOrder  $workOrder
-     * @return \Illuminate\Http\Response
+     * @param WorkOrder $workOrder
+     * @return Response
      */
     public function show(WorkOrder $workOrder)
     {
@@ -94,8 +97,8 @@ class WorkerOrderController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\WorkOrder  $workOrder
-     * @return \Illuminate\Http\Response
+     * @param WorkOrder $workOrder
+     * @return Response
      */
     public function edit(WorkOrder $workOrder)
     {
@@ -106,14 +109,26 @@ class WorkerOrderController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \App\Http\Requests\UpdateWorkOrderRequest  $request
-     * @param  \App\Models\WorkOrder  $workOrder
-     * @return \Illuminate\Http\Response
+     * @param WorkOrder $workOrder
+     * @return Response
      */
-    public function update(UpdateWorkOrderRequest $request, WorkOrder $workOrder)
+    public function update(UpdateWorkOrderRequest $request)
     {
-        $attr = $request->toArray();
 
-        $workOrder->update($attr);
+        $attr = $request->toArray();
+        $id = $attr['id'];
+        $order = WorkOrder::find($id);
+
+        if ($order) {
+            $order->update($attr);
+        } else {
+            return back()->with([
+                'type' => 'success',
+                'message' => 'Work order has been not updated',
+            ]);
+        }
+
+
 
         return back()->with([
             'type' => 'success',
@@ -124,16 +139,17 @@ class WorkerOrderController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\WorkOrder  $workOrder
-     * @return \Illuminate\Http\Response
+     * @param WorkOrder $workOrder
+     * @return RedirectResponse
      */
-    public function destroy(WorkOrder $workOrder)
+    public function destroy(int $workOrder): RedirectResponse
     {
-        $workOrder->delete();
+        $order = WorkOrder::find($workOrder);
+        $order->delete();
 
         return back()->with([
             'type' => 'success',
-            'message' => 'workOrder has been deleted',
+            'message' => 'work order has been deleted',
         ]);
     }
 }

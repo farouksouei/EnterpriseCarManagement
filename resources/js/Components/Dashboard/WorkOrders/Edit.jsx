@@ -2,9 +2,10 @@ import { useForm } from '@inertiajs/inertia-react';
 import React, {useEffect} from 'react';
 
 export default function CreateWorkOrder({ close, workers, vehicles,model }) {
-    console.log(workers)
-    console.log(vehicles)
+    console.log("model", model)
+
     const { data, setData, put, reset, errors } = useForm({
+        id: model.id,
         work_order_number: model.work_order_number,
         work_order_type: model.work_order_type,
         work_order_status: model.work_order_status,
@@ -15,7 +16,7 @@ export default function CreateWorkOrder({ close, workers, vehicles,model }) {
     const onChange = (e) => setData({ ...data, [e.target.id]: e.target.value });
 
     const onSubmit = (e) => {
-        console.log("data",data)
+        console.log("data",model.id)
         e.preventDefault();
         put(route('workorders.update', model.id), {
             data,
@@ -28,6 +29,7 @@ export default function CreateWorkOrder({ close, workers, vehicles,model }) {
 
     useEffect(() => {
         setData({...data,
+            id: model.id,
             work_order_number: model.work_order_number,
             work_order_type: model.work_order_type,
             work_order_status: model.work_order_status,
