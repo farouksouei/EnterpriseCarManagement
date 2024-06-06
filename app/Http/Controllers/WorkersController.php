@@ -77,9 +77,16 @@ class WorkersController extends Controller
      * @param  \App\Models\Workers  $workers
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateWorkersRequest $request, Workers $workers)
+    public function update(UpdateWorkersRequest $request, Workers $worker)
     {
-        //
+        $attr = $request->toArray();
+
+        $worker->update($attr);
+
+        return back()->with([
+            'type' => 'success',
+            'message' => 'Worker has been updated successfully.',
+        ]);
     }
 
     /**

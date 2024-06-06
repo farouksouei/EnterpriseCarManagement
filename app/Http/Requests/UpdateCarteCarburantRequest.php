@@ -13,7 +13,7 @@ class UpdateCarteCarburantRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,7 +24,10 @@ class UpdateCarteCarburantRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'litres' => ['required', 'numeric', 'min:0'],
+            'max_litres' => ['required', 'numeric', 'min:0'],
+            'plafond' => ['required', 'numeric', 'min:0'],
+            'vehicle_id' => ['required', 'exists:vehicules,id'],
         ];
     }
 }

@@ -4,7 +4,7 @@ import Dialog from '../../Components/Dashboard/Dialog';
 import Base from '../../Layouts/Base';
 import useDialog from '../../Hooks/useDialog';
 import CreateCarteCarburant from '../../Components/Dashboard/CarteCarburant/Create';
-import EditCarteCarburant from '../../Components/Dashboard/Users/EditUser';
+import EditCarteCarburant from '../../Components/Dashboard/CarteCarburant/Edit';
 import { Inertia } from '@inertiajs/inertia';
 
 export default function Index(props) {
@@ -43,7 +43,7 @@ export default function Index(props) {
                 </Dialog>
 
                 <Dialog trigger={updateTrigger} title={`Update Carte Carburant`}>
-                    <EditCarteCarburant model={state} close={updateCloseTrigger}/>
+                    <EditCarteCarburant vehicles={vehicles} model={state} close={updateCloseTrigger}/>
                 </Dialog>
 
                 <Dialog trigger={destroyTrigger} title={`Delete Carte Carburant`}>

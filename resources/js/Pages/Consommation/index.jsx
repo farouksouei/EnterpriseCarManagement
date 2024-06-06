@@ -5,7 +5,7 @@ import Dialog from '../../Components/Dashboard/Dialog';
 import Base from '../../Layouts/Base';
 import useDialog from '../../Hooks/useDialog';
 import CreateKilometersRecord from '../../Components/Dashboard/Consommation/Create';
-import EditKilometersRecord from '../../Components/Dashboard/Consommation/Create';
+import EditKilometersRecord from '../../Components/Dashboard/Consommation/Edit';
 import { Inertia } from '@inertiajs/inertia';
 
 export default function Index(props) {
@@ -43,6 +43,7 @@ export default function Index(props) {
                 </Dialog>
 
                 <Dialog trigger={updateTrigger} title={`Update Kilometers Record`}>
+                    <EditKilometersRecord model={state} close={addCloseTrigger} vehicles={vehicles}/>
                 </Dialog>
 
                 <Dialog trigger={destroyTrigger} title={`Delete Kilometers Record`}>

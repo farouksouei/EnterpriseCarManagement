@@ -4,7 +4,7 @@ import Dialog from '../../Components/Dashboard/Dialog';
 import Base from '../../Layouts/Base'
 import useDialog from '../../Hooks/useDialog';
 import CreateWorker from '../../Components/Dashboard/Workers/CreateWorker';
-import EditUser from '../../Components/Dashboard/Users/EditUser';
+import EditUser from '../../Components/Dashboard/Workers/Edit';
 import { Inertia } from '@inertiajs/inertia';
 
 export default function Index(props) {

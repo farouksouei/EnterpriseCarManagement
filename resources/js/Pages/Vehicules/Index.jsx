@@ -4,7 +4,7 @@ import Dialog from '../../Components/Dashboard/Dialog';
 import Base from '../../Layouts/Base'
 import useDialog from '../../Hooks/useDialog';
 import CreateUser from '../../Components/Dashboard/Users/CreateUser';
-import EditUser from '../../Components/Dashboard/Users/EditUser';
+import EditUser from '../../Components/Dashboard/Vehicules/EditVehicule';
 import { Inertia } from '@inertiajs/inertia';
 import CreateVehicule from "../../Components/Dashboard/Vehicules/CreateVehicule";
 

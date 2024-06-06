@@ -4,7 +4,7 @@ import Dialog from '../../Components/Dashboard/Dialog';
 import Base from '../../Layouts/Base'
 import useDialog from '../../Hooks/useDialog';
 import CreateWorkOrder from '../../Components/Dashboard/WorkOrders/CreateWorkOrder';
-import EditUser from '../../Components/Dashboard/Users/EditUser';
+import EditUser from '../../Components/Dashboard/WorkOrders/Edit';
 import { Inertia } from '@inertiajs/inertia';
 import {Button, FormControl, InputLabel, MenuItem, Select, TextField} from "@mui/material";
 import html2canvas from "html2canvas";
@@ -127,7 +127,7 @@ export default function Index(props) {
                 </Dialog>
 
                 <Dialog trigger={UpdateTrigger} title={`Update Worker: ${state.license_plate}`}>
-                    <EditUser model={state} close={UpdateCloseTrigger}/>
+                    <EditUser model={state} workers={props.workers} vehicles={props.vehicles} close={UpdateCloseTrigger}/>
                 </Dialog>
 
                 <Dialog trigger={destroyTrigger} title={`Delete Worker: ${state.license_plate}`}>

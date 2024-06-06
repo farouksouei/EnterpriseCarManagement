@@ -89,7 +89,14 @@ class CarteCarburantController extends Controller
      */
     public function update(UpdateCarteCarburantRequest $request, CarteCarburant $carteCarburant)
     {
-        //
+        $attr = $request->toArray();
+
+        $carteCarburant->update($attr);
+
+        return back()->with([
+            'type' => 'success',
+            'message' => 'carteCarburant has been updated',
+        ]);
     }
 
     /**

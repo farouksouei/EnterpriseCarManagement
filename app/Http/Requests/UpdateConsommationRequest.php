@@ -13,7 +13,7 @@ class UpdateConsommationRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,7 +24,9 @@ class UpdateConsommationRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'date' => ['required', 'date'],
+            'kilometers' => ['required', 'numeric', 'min:0'],
+            'vehicle_id' => ['required', 'exists:vehicules,id'],
         ];
     }
 }

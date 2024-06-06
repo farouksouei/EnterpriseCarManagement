@@ -111,7 +111,14 @@ class WorkerOrderController extends Controller
      */
     public function update(UpdateWorkOrderRequest $request, WorkOrder $workOrder)
     {
-        //
+        $attr = $request->toArray();
+
+        $workOrder->update($attr);
+
+        return back()->with([
+            'type' => 'success',
+            'message' => 'Work order has been updated',
+        ]);
     }
 
     /**

@@ -11,6 +11,7 @@ use App\Http\Requests\StoreConsommationRequest;
 use App\Http\Requests\UpdateConsommationRequest;
 use App\Models\User;
 use App\Models\Vehicule;
+use Illuminate\Http\RedirectResponse;
 
 class ConsommationtController extends Controller
 {
@@ -44,7 +45,7 @@ class ConsommationtController extends Controller
      * Store a newly created resource in storage.
      *
      * @param  \App\Http\Requests\StoreConsommationRequest  $request
-     * @return \Illuminate\Http\RedirectResponse
+     * @return RedirectResponse
      */
     public function store(StoreConsommationRequest $request)
     {
@@ -67,7 +68,7 @@ class ConsommationtController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Consommation  $consommation
+     * @param Consommation $consommation
      * @return \Illuminate\Http\Response
      */
     public function show(Consommation $consommation)
@@ -78,7 +79,7 @@ class ConsommationtController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Consommation  $consommation
+     * @param Consommation $consommation
      * @return \Illuminate\Http\Response
      */
     public function edit(Consommation $consommation)
@@ -89,19 +90,26 @@ class ConsommationtController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \App\Http\Requests\UpdateConsommationRequest  $request
-     * @param  \App\Models\Consommation  $consommation
-     * @return \Illuminate\Http\Response
+     * @param UpdateConsommationRequest $request
+     * @param Consommation $consommation
+     * @return RedirectResponse
      */
     public function update(UpdateConsommationRequest $request, Consommation $consommation)
     {
-        //
+        $attr = $request->toArray();
+
+        $consommation->update($attr);
+
+        return back()->with([
+            'type' => 'success',
+            'message' => 'consommation has been updated',
+        ]);
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Consommation  $consommation
+     * @param Consommation $consommation
      * @return \Illuminate\Http\Response
      */
     public function destroy(Consommation $consommation)

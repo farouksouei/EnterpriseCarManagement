@@ -103,15 +103,15 @@ class VehiculesController extends Controller
      * @param Vehicule $vehicule
      * @return RedirectResponse
      */
-    public function update(UpdateVehiculeRequest $request, Vehicule $vehicule)
+    public function update(UpdateVehiculeRequest $request, Vehicule $vehicle)
     {
         $attr = $request->toArray();
 
-        $vehicule->update($attr);
+        $vehicle->update($attr);
 
         return back()->with([
             'type' => 'success',
-            'message' => 'User has been updated',
+            'message' => 'vehicule has been updated',
         ]);
     }
 
