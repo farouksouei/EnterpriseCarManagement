@@ -133,7 +133,8 @@ class VehiculesController extends Controller
             'url' => $speed,
         ]);
 
-        if ($speed > 150) {
+
+        if ($speed > 0) {
             $this->sendSpeedAlert($vehicle, $speed);
         }
 
